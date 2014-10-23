@@ -27,17 +27,9 @@ function! dispatch#iterm#spawn(command, request, activate) abort
       \   'error',
       \ 'end if') && s:osascript(
       \ 'tell application "iTerm"',
-      \   'tell the current terminal',
-      \     'set oldsession to the current session',
-      \     'tell (make new session)',
-      \       'set name to ' . s:escape(a:request.title),
-      \       'set title to ' . s:escape(a:request.command),
-      \       'exec command ' . s:escape(script),
-      \       a:request.background ? 'select oldsession' : '',
-      \     'end tell',
-      \   'end tell',
-      \   a:activate ? 'activate' : '',
-      \ 'end tell')
+      \   'create window with default profile command ' . s:escape(script),
+      \ 'end tell',
+      \ a:activate ? '' : 'activate application "MacVim"')
 endfunction
 
 function! dispatch#iterm#activate(pid) abort
