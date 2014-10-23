@@ -27,9 +27,14 @@ function! dispatch#iterm#spawn(command, request, activate) abort
       \   'error',
       \ 'end if') && s:osascript(
       \ 'tell application "iTerm"',
-      \   'create window with default profile command ' . s:escape(script),
-      \ 'end tell',
-      \ a:activate ? '' : 'activate application "MacVim"')
+      \   'tell current window',
+      \     'tell current session',
+      \       'split horizontally with default profile',
+      \       'write text ' . s:escape(script),
+      \       'write text "exit"',
+      \     'end tell',
+      \   'end tell',
+      \ 'end tell')
 endfunction
 
 function! dispatch#iterm#activate(pid) abort
