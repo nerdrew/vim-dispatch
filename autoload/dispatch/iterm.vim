@@ -31,7 +31,6 @@ function! dispatch#iterm#spawn(command, request, activate) abort
       \     'tell current session',
       \       'split horizontally with default profile',
       \       'write text ' . s:escape(script),
-      \       'write text "exit"',
       \     'end tell',
       \   'end tell',
       \ 'end tell')
@@ -59,5 +58,5 @@ function! s:osascript(...) abort
 endfunction
 
 function! s:escape(string) abort
-  return '"'.escape(a:string, '"\').'"'
+  return '"'.escape(a:string, '"\').' && exit"'
 endfunction
